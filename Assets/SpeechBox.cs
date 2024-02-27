@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SpeechBox : MonoBehaviour
 {
@@ -15,15 +16,15 @@ public class SpeechBox : MonoBehaviour
     public TMP_Text MyMouth;
     public Canvas canvas;
     public int linecount;
+    public int totallinecount;
+    public Vector2 textPosition;
+    public Vector2 TopRight;
+    public Vector2 BottomLeft;
 
     // Start is called before the first frame update
     void Start()
     {
         //MyLines = Arthur.Sherlock;
-        // Moves the dialogue box into the correct position and size relative to the canvas
-        RepositionLeft();
-        // Moves the box's text to line up with the box
-        RepositionText();
         //Debug.Log("Offsetmax: " + MyMouth.GetComponent<RectTransform>().offsetMax);
     }
 
@@ -46,7 +47,7 @@ public class SpeechBox : MonoBehaviour
     }
 
     // Moves the dialogue box into the correct position and size relative to the canvas
-    private void RepositionLeft()
+    public void RepositionLeft()
     {
         // Finds the height and width of the canvas
         RectTransform canvasposition = canvas.GetComponent<RectTransform>();
@@ -62,8 +63,8 @@ public class SpeechBox : MonoBehaviour
         int rightstretch = Convert.ToInt32(mywidth);
         int borderstretch = 10;
         // Converts the stretch into appropriate format
-        Vector2 TopRight = new Vector2(rightstretch, topstretch);
-        Vector2 BottomLeft = new Vector2(borderstretch, borderstretch);
+        TopRight = new Vector2(rightstretch, topstretch);
+        BottomLeft = new Vector2(borderstretch, borderstretch);
         //Debug.Log("before transform, OffsetMax: " + this.GetComponent<RectTransform>().offsetMax + ", OffsetMin: " + this.GetComponent<RectTransform>().offsetMin);
         // Transforms the dialogue box
         this.GetComponent<RectTransform>().offsetMax = TopRight;
@@ -75,7 +76,7 @@ public class SpeechBox : MonoBehaviour
     // Moves the box's text to line up with the box
     // Would do "MyMouth.GetComponent<RectTransform>().rect = this.GetComponent<RectTransform>().rect;" 
     // But can't cause is read-only
-    private void RepositionText()
+    public void RepositionText()
     {
         // Finds necessary dimensions and position of dialogue box
         RectTransform BoxTransform = this.GetComponent<RectTransform>();
@@ -100,13 +101,13 @@ public class SpeechBox : MonoBehaviour
         textHeight = textHeight / 2;
         float x = 0 - (canvasWidth - textWidth - 20);
         float y = 0 - (canvasHeight - textHeight - 20);
-        Vector2 textCenter = new Vector2(x, y);
+        textPosition = new Vector2(x, y);
         //Debug.Log("Text Center: (" + x + ", " + y + ")");
-        MyMouth.GetComponent<RectTransform>().anchoredPosition = textCenter;
+        MyMouth.GetComponent<RectTransform>().anchoredPosition = textPosition;
     }
 
 
-    // Finds the location of this character's dialogue for this scene, called by ConanDoyke.Start
+    // Finds the location of this character's dialogue for this scene, called by ConanDoyle.Start
     public void FindLines()
     {
 
@@ -126,11 +127,43 @@ public class SpeechBox : MonoBehaviour
         }
     }
 
-    // displays this character's next line of text (including the first, which is called by ConanDoyle.Start) 
+    // determines if this character is the first to speak and, if so, displays the character's line (called by ConanDoyle.Start)
+    public void FirstLine()
+    {
+        totallinecount = 0;
+        linecount = 0;
+        NextLine();
+    }
+
+    // displays this character's next line of text  
     public void NextLine()
     {
-        MyMouth.text = MyLines[linecount];
-        linecount++;
+        if (Arthur.LineOrder[totallinecount] == MyName)
+        {
+            MyMouth.text = MyLines[linecount];
+            linecount++;
+            moveIn();
+        }
+        else
+        {
+            moveOut();
+        }
+        totallinecount++;
     }
+
+    private void moveIn()
+    {
+        this.GetComponent<RectTransform>().offsetMax = TopRight;
+        this.GetComponent<RectTransform>().offsetMin = BottomLeft;
+        MyMouth.GetComponent<RectTransform>().anchoredPosition = textPosition;
+    }
+
+    private void moveOut()
+    {
+        this.GetComponent<RectTransform>().offsetMax = new Vector2(-883, -220);
+        this.GetComponent<RectTransform>().offsetMin = new Vector2(-723, 0);
+        MyMouth.GetComponent<RectTransform>().anchoredPosition = new Vector2(-900, 0);
+    }
+
     
 }
