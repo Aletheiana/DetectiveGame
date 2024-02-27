@@ -19,26 +19,7 @@ public class SpeechBox : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // Finds the location of this character's dialogue for this scene
-        Arthur = FindObjectOfType<ConanDoyle>();
-        MyLines = Arthur.Sherlock;
-        List<string[]> lines = Arthur.words;
-        foreach (string[]  line in lines)
-        {
-            if (line[0] ==  MyName)
-            {
-                MyLines = line;
-                //Debug.Log("Accepted " + line[0]);
-            }
-            else
-            {
-                //Debug.Log("Rejected " + line[0]);
-            }
-        }
-        // Finds (doesn't really find) the text object and displays this character's first line of text
-        linecount = 0;
-        MyMouth.text = MyLines[linecount];
-        linecount++;
+        //MyLines = Arthur.Sherlock;
         // Moves the dialogue box into the correct position and size relative to the canvas
         RepositionLeft();
         // Moves the box's text to line up with the box
@@ -52,8 +33,7 @@ public class SpeechBox : MonoBehaviour
         if (Input.GetMouseButtonDown(0) == true)
         {
             Debug.Log("Left-clicked on dialogue");
-            MyMouth.text = MyLines[linecount];
-            linecount++;
+            this.NextLine();
         }
         if (Input.GetMouseButtonDown(1) == true)
         {
@@ -125,5 +105,32 @@ public class SpeechBox : MonoBehaviour
         MyMouth.GetComponent<RectTransform>().anchoredPosition = textCenter;
     }
 
+
+    // Finds the location of this character's dialogue for this scene, called by ConanDoyke.Start
+    public void FindLines()
+    {
+
+        Arthur = FindObjectOfType<ConanDoyle>();
+        List<string[]> lines = Arthur.words;
+        foreach (string[] line in lines)
+        {
+            if (line[0] == MyName)
+            {
+                MyLines = line;
+                Debug.Log("Accepted " + line[0]);
+            }
+            else
+            {
+                Debug.Log("Rejected " + line[0]);
+            }
+        }
+    }
+
+    // displays this character's next line of text (including the first, which is called by ConanDoyle.Start) 
+    public void NextLine()
+    {
+        MyMouth.text = MyLines[linecount];
+        linecount++;
+    }
     
 }

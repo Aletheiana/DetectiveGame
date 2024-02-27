@@ -27,6 +27,13 @@ public class ConanDoyle : MonoBehaviour
         this.Gregson[1] = "Welcome to Scotland Yard";
         this.Lestrade[0] = "Lestrade";
         this.Lestrade[1] = "Rachel";
+        SpeechBox[] speechBoxes = GameObject.FindObjectsOfType<SpeechBox>();
+        foreach (SpeechBox speechBox in speechBoxes)
+        {
+            speechBox.FindLines();
+            speechBox.linecount = 0;
+            speechBox.NextLine();
+        }
     }
 
     // Update is called once per frame
