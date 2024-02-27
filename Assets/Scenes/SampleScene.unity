@@ -286,9 +286,107 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 699f79904e1616545adf2f392d631092, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DialogueOne: Hello World
-  DialogueTwo: Hello Me
-  DialogueThree: Thanks for playing
+  Sherlock:
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
 --- !u!4 &484307124
 Transform:
   m_ObjectHideFlags: 0
@@ -446,10 +544,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcb7438ed825c7340b784fdccf9933da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Arthur: {fileID: 0}
-  Character: 0
-  MyLines: {fileID: 404026792}
+  Arthur: {fileID: 484307123}
+  MyLines: []
+  MyMouth: {fileID: 404026792}
   canvas: {fileID: 1763047273}
+  linecount: 0
 --- !u!114 &643793686
 MonoBehaviour:
   m_ObjectHideFlags: 0
