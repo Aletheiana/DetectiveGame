@@ -13,10 +13,10 @@ public class SpeechBox : MonoBehaviour
     public ConanDoyle Arthur;
     public string MyName = "Sherlock";
     public string[] MyLines;
+    public int linecountCurrent;
     public TMP_Text MyMouth;
     public Canvas canvas;
-    public int linecount;
-    public int totallinecount;
+    //public int totallinecount;
     public Vector2 textPosition;
     public Vector2 TopRight;
     public Vector2 BottomLeft;
@@ -34,7 +34,7 @@ public class SpeechBox : MonoBehaviour
         if (Input.GetMouseButtonDown(0) == true)
         {
             Debug.Log("Left-clicked on dialogue");
-            this.NextLine();
+            this.nextLine();
         }
         if (Input.GetMouseButtonDown(1) == true)
         {
@@ -110,33 +110,32 @@ public class SpeechBox : MonoBehaviour
     // Finds the location of this character's dialogue for this scene, called by ConanDoyle.Start
     public void FindLines()
     {
-
         Arthur = FindObjectOfType<ConanDoyle>();
-        List<string[]> lines = Arthur.words;
-        foreach (string[] line in lines)
-        {
-            if (line[0] == MyName)
-            {
-                MyLines = line;
-                Debug.Log("Accepted " + line[0]);
-            }
-            else
-            {
-                Debug.Log("Rejected " + line[0]);
-            }
-        }
+        MyLines = Arthur.currentdialogue;
     }
 
     // determines if this character is the first to speak and, if so, displays the character's line (called by ConanDoyle.Start)
-    public void FirstLine()
+    public void nextLine()
     {
-        totallinecount = 0;
-        linecount = 0;
-        NextLine();
+        string thisLine = MyLines[linecountCurrent];
+        string speakingName = getName(thisLine);
+        if (speakingName == MyName)
+        {
+            MyMouth.text = getLine(thisLine);
+            moveIn();
+        }
+        else
+        {
+            print(speakingName + "'s Line");
+            moveOut();
+        }
+        linecountCurrent++;
     }
 
-    // displays this character's next line of text  
-    public void NextLine()
+    // displays this character's next line of text
+    // NO LONGER NECESSARY
+    // NOW == FIRSTLINE, FIRSTLINE RENAMED nextLine
+    /*public void NextLine()
     {
         if (Arthur.LineOrder[totallinecount] == MyName)
         {
@@ -149,7 +148,7 @@ public class SpeechBox : MonoBehaviour
             moveOut();
         }
         totallinecount++;
-    }
+    }*/
 
     private void moveIn()
     {
@@ -165,5 +164,24 @@ public class SpeechBox : MonoBehaviour
         MyMouth.GetComponent<RectTransform>().anchoredPosition = new Vector2(-900, 0);
     }
 
-    
+
+    // Finds which character is saying a given line
+    // Input is one string (by count) of the currently active dialogue string[] (e.g. dialogue[linecount])
+    public string getName(string libretto)
+    {
+        int end = libretto.IndexOf(":");
+        string output = libretto.Substring(0, end);
+        print(output);
+        return output;
+    }
+
+    public string getLine(string libretto)
+    {
+        int start = libretto.IndexOf(":") + 1;
+        string output = libretto.Substring(start, libretto.Length - start);
+        print(output);
+        return output;
+    }
+
+
 }

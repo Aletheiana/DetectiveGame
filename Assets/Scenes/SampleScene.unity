@@ -211,6 +211,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8216225949476483623, guid: b305c4c78e3322c499ae2b1ec17a925d, type: 3}
+      propertyPath: m_fontColor.b
+      value: 0.2924527
+      objectReference: {fileID: 0}
+    - target: {fileID: 8216225949476483623, guid: b305c4c78e3322c499ae2b1ec17a925d, type: 3}
+      propertyPath: m_fontColor.g
+      value: 0.2924527
+      objectReference: {fileID: 0}
+    - target: {fileID: 8216225949476483623, guid: b305c4c78e3322c499ae2b1ec17a925d, type: 3}
+      propertyPath: m_fontColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8216225949476483623, guid: b305c4c78e3322c499ae2b1ec17a925d, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4283124735
+      objectReference: {fileID: 0}
     - target: {fileID: 8264176689925241404, guid: b305c4c78e3322c499ae2b1ec17a925d, type: 3}
       propertyPath: m_Name
       value: Text (TMP) (Watson)
@@ -756,8 +772,20 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8216225949476483623, guid: b305c4c78e3322c499ae2b1ec17a925d, type: 3}
+      propertyPath: m_fontColor.b
+      value: 0.82032084
+      objectReference: {fileID: 0}
+    - target: {fileID: 8216225949476483623, guid: b305c4c78e3322c499ae2b1ec17a925d, type: 3}
+      propertyPath: m_fontColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8216225949476483623, guid: b305c4c78e3322c499ae2b1ec17a925d, type: 3}
+      propertyPath: m_fontColor.r
+      value: 0.2471698
+      objectReference: {fileID: 0}
+    - target: {fileID: 8216225949476483623, guid: b305c4c78e3322c499ae2b1ec17a925d, type: 3}
       propertyPath: m_fontColor32.rgba
-      value: 4294967295
+      value: 4291952447
       objectReference: {fileID: 0}
     - target: {fileID: 8264176689925241404, guid: b305c4c78e3322c499ae2b1ec17a925d, type: 3}
       propertyPath: m_Name
