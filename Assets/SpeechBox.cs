@@ -33,7 +33,7 @@ public class SpeechBox : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0) == true)
         {
-            Debug.Log("Left-clicked on dialogue");
+            //Debug.Log("Left-clicked on dialogue");
             this.nextLine();
         }
         if (Input.GetMouseButtonDown(1) == true)
@@ -126,7 +126,7 @@ public class SpeechBox : MonoBehaviour
         }
         else
         {
-            print(speakingName + "'s Line");
+            //print(speakingName + "'s Line");
             moveOut();
         }
         linecountCurrent++;
@@ -171,7 +171,7 @@ public class SpeechBox : MonoBehaviour
     {
         int end = libretto.IndexOf(":");
         string output = libretto.Substring(0, end);
-        print(output);
+        //print(output);
         return output;
     }
 
@@ -179,7 +179,7 @@ public class SpeechBox : MonoBehaviour
     {
         int start = libretto.IndexOf(":") + 1;
         string output = libretto.Substring(start, libretto.Length - start);
-        print(output);
+        //print(output);
         return output;
     }
 
