@@ -8,21 +8,22 @@ public class DialogueButton : MonoBehaviour
     public string MyName = "Watson";
     public int MyChoice = 0;
     public SpeechBox meBox;
+    public bool chosen;
     
     // Start is called before the first frame update
     void Start()
     {
-        
+        chosen = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) == true)
+        /*if (Input.GetMouseButtonDown(0) == true)
         {
             meBox = FindmeBox();
             Reposition(3);
-        }
+        }*/
     }
 
     // Finds the dialogue box with the same character as this button
@@ -81,10 +82,71 @@ public class DialogueButton : MonoBehaviour
             if (i == MyChoice)
             {
                 rectTransform.anchoredPosition = new Vector2(x, myyy);
-                print("yes: " + myyy);
+                //print("yes: " + myyy);
             }
-            else { print("no: " + myyy); }
+            //else { print("no: " + myyy); }
         }
 
     }
+
+    public void optionChosen()
+    {
+        // Both boxes need to update linecount current
+        chosen = true;
+        if(meBox.Arthur.currentPath == 1000)
+        {
+            meBox.Arthur.linecountDialogue = meBox.linecountCurrent;
+        }
+        else
+        {
+            meBox.Arthur.linecountPaths[meBox.Arthur.currentPath] = meBox.linecountCurrent;
+        }
+        meBox.Arthur.currentdialogue = meBox.Arthur.ABC123[MyChoice];
+        meBox.Arthur.currentPath = MyChoice;
+        SpeechBox[] boxes = FindObjectsOfType<SpeechBox>();
+        foreach (SpeechBox box in boxes)
+        {
+            box.linecountCurrent = box.Arthur.linecountPaths[MyChoice];
+            box.MyLines = box.Arthur.currentdialogue;
+        }
+        meBox.MyMouth.color = meBox.textColor;
+        meBox.nextButton.interactable = true;
+        meBox.Arthur.nextBoxLine();
+        if (meBox.Arthur.options[meBox.Arthur.linecountOptions] == "loop")
+        {
+            print("loop");
+            DialogueButton[] buttons = FindObjectsOfType<DialogueButton>();
+            foreach (DialogueButton button in buttons) { button.moveOut(); }
+        }
+        else if(meBox.Arthur.options[meBox.Arthur.linecountOptions] == "end")
+        {
+            print("end");
+            meBox.KillButtons();
+        }
+    }
+
+    public void moveOut()
+    {
+
+        RectTransform rectTransform = GetComponent<RectTransform>();
+        float x = rectTransform.anchoredPosition.x;
+        float y = rectTransform.anchoredPosition.y;
+        x = x - 700;
+        rectTransform.anchoredPosition = new Vector2(x, y);
+    }
+
+    public void moveIn()
+    {
+        RectTransform rectTransform = GetComponent<RectTransform>();
+        float x = rectTransform.anchoredPosition.x;
+        float y = rectTransform.anchoredPosition.y;
+        x = x + 700;
+        rectTransform.anchoredPosition = new Vector2(x, y);
+    }
+
+    /*public void nope()
+    {
+        Debug.Log("This Button Already Pressed");
+    }*/
+
 }

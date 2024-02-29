@@ -6,6 +6,7 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 public class SpeechBox : MonoBehaviour
 {
@@ -16,14 +17,22 @@ public class SpeechBox : MonoBehaviour
     public int linecountCurrent;
     public TMP_Text MyMouth;
     public Canvas canvas;
+    public UnityEngine.UI.Button nextButton;
     //public int totallinecount;
     public Vector2 textPosition;
     public Vector2 TopRight;
     public Vector2 BottomLeft;
 
+    public Color32 textColor;
+    public Color32 hiddenColor;
+    
+
     // Start is called before the first frame update
     void Start()
     {
+        textColor = MyMouth.color;
+        hiddenColor = new Color32(149, 149, 149, 255);
+        // Everything that would be here is called by ConanDoyle.Start()
         //MyLines = Arthur.Sherlock;
         //Debug.Log("Offsetmax: " + MyMouth.GetComponent<RectTransform>().offsetMax);
     }
@@ -34,7 +43,8 @@ public class SpeechBox : MonoBehaviour
         if (Input.GetMouseButtonDown(0) == true)
         {
             //Debug.Log("Left-clicked on dialogue");
-            this.nextLine();
+            // nextLine now called by "Next" button
+            //this.nextLine();
         }
         if (Input.GetMouseButtonDown(1) == true)
         {
@@ -117,19 +127,41 @@ public class SpeechBox : MonoBehaviour
     // determines if this character is the first to speak and, if so, displays the character's line (called by ConanDoyle.Start)
     public void nextLine()
     {
+        // Finds the current line of dialogue, then advances the line counter
         string thisLine = MyLines[linecountCurrent];
+        linecountCurrent++;
+        // Determines if this character is speaking
         string speakingName = getName(thisLine);
         if (speakingName == MyName)
         {
-            MyMouth.text = getLine(thisLine);
+            // This character is speaking, so moves into view and finds what the character is saying
             moveIn();
+            string line = getLine(thisLine);
+            // If the character is choosing a dialogue option instead of speaking, runs runChoice()
+            if(line == "Choice")
+            {
+                runChoice();
+            }
+            // Otherwise, displays what the character is saying
+            else if (line == "loop" && Arthur.options[Arthur.linecountOptions] == "loop")
+            {
+                repeatChoice();
+            }
+            else if (line == "end" && Arthur.options[Arthur.linecountOptions] == "end")
+            {
+                backToDialogue();
+            }
+            else
+            {
+                MyMouth.text = line;
+            }
         }
         else
         {
+            // This character isn't speaking, so moves out of view
             //print(speakingName + "'s Line");
             moveOut();
         }
-        linecountCurrent++;
     }
 
     // displays this character's next line of text
@@ -150,6 +182,7 @@ public class SpeechBox : MonoBehaviour
         totallinecount++;
     }*/
 
+    // Moves this dialogue box and its textbox into view
     private void moveIn()
     {
         this.GetComponent<RectTransform>().offsetMax = TopRight;
@@ -157,6 +190,7 @@ public class SpeechBox : MonoBehaviour
         MyMouth.GetComponent<RectTransform>().anchoredPosition = textPosition;
     }
 
+    // Moves this dialogue box and its textbox out of view
     private void moveOut()
     {
         this.GetComponent<RectTransform>().offsetMax = new Vector2(-883, -220);
@@ -175,6 +209,7 @@ public class SpeechBox : MonoBehaviour
         return output;
     }
 
+    // Finds what the character is saying
     public string getLine(string libretto)
     {
         int start = libretto.IndexOf(":") + 1;
@@ -183,5 +218,103 @@ public class SpeechBox : MonoBehaviour
         return output;
     }
 
+    // Creates buttons for dialogue options
+    private void runChoice()
+    {
+        DialogueButton[] buttons = new DialogueButton[100];
+        int noofChoices = 0;
+        // Runs from 0 to break for first dialogue choice, from end of previous dialogue choice to break for subsequent
+        for (int i = Arthur.linecountOptions; i < 100; i++)
+        {
+            if(Arthur.options[i] == "end" | Arthur.options[i] == "loop")
+                // i.e. when list of options is over
+            {
+                // counts how many options there were
+                noofChoices = i - Arthur.linecountOptions - 1;
+                // notes where the end of this set of options was (NB: stops on "end"/"loop" message, not on first option of next set)
+                Arthur.linecountOptions = i;
+                print("end = options[" + i + "]");
+                // breaks loop so doesn't overrun into next set of options or null section of list
+                break;
+            }
+            // Makes a button and puts it in an array so rest of function can reference it
+            int buttonPosition = i - Arthur.linecountOptions;
+            buttons[buttonPosition] = Instantiate(Arthur.buttonPrefab);
+            // Sets new button's parent as Canvas so it positions correctly
+            buttons[buttonPosition].transform.SetParent(canvas.transform, false);
+            // Finds this button's text component and prompts it to display one of the options
+            // (due to array indexing, buttons[0] will display the first option and so on)
+            TMP_Text buttext = buttons[buttonPosition].GetComponentInChildren<TMP_Text>();
+            buttext.text = Arthur.options[i];
+        }
+        // Sets variables of created buttons
+        // Again, indexing means buttons[0] has MyChoice = 0, is top of list, and displays 1st option, and so on for rest of buttons
+        for(int i = 0; i < (noofChoices + 1); i++)
+        {
+            buttons[i].MyName = this.MyName;
+            buttons[i].MyChoice = i;
+            buttons[i].meBox = this;
+            buttons[i].Reposition(noofChoices + 1);
+            // Hides the text of the dialogue box so it isn't visible behind the buttons
+        }
+        MyMouth.color = hiddenColor;
+        nextButton.interactable = false;
+    }
 
+    // Brings back buttons from a previous dialogue choice (chosen option greyed out)
+    private void repeatChoice()
+    {
+        // Checks if all buttons are clicked... you'll see
+        int noButtons = 0;
+        int noClicked = 0;
+        // Finds all dialogue option buttons
+        DialogueButton[] buttons = FindObjectsOfType<DialogueButton>();
+        foreach (DialogueButton button in buttons)
+        {
+            // Brings all the buttons into view
+            button.moveIn();
+            // Greys out and unclickables the previously-clicked button
+            if (button.chosen == true)
+            {
+                UnityEngine.UI.Button butt = button.gameObject.GetComponent<UnityEngine.UI.Button>();
+                // No longer necessary but is how to change button behaviour
+                // butt.onClick.RemoveAllListeners();
+                // butt.onClick.AddListener(button.nope);
+                butt.interactable = false;
+                noClicked++;
+            }
+            noButtons++;
+        }
+        // WHAT TO DO IF ALL BUTTONS CLICKED
+        if (noButtons > noClicked)
+        {
+            print("Continue");
+        }
+        else if (noButtons == noClicked)
+        {
+            print("out of options");
+            backToDialogue();
+        }
+        MyMouth.color = hiddenColor;
+        nextButton.interactable = false;
+    }
+
+    // Destroys all currently-existing dialogue buttons
+    public void KillButtons()
+    {
+        DialogueButton[] buttons = FindObjectsOfType<DialogueButton>();
+        foreach(DialogueButton button in buttons)
+        {
+            if (button.meBox == this)
+            {
+                GameObject go = button.gameObject;
+                Destroy(go);
+            }
+        }
+    }
+
+    private void backToDialogue()
+    {
+        print("ummmmmmmmmmm I should figure out how to go back to dialogue");
+    }
 }
