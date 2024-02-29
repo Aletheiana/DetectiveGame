@@ -26,6 +26,9 @@ public class ConanDoyle : MonoBehaviour
     public int[] linecountPaths = new int[26];
     public int currentPath;
 
+    // Set in start, needs to be updated whenever a speechbox is instantiated or destroyed
+    public int noSpeechBoxes;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -70,7 +73,7 @@ public class ConanDoyle : MonoBehaviour
         PathC[1] = "Watson:Huh? And where is Lestrade, i asked to talk to him";
         PathC[2] = "Sherlock:Go back and choose to talk to Gregson, I'll explain there";
         PathC[3] = "Watson:loop";
-        PathD[0] = "Sherlock:You've gone the wron way, try again";
+        PathD[0] = "Sherlock:You've gone the wrong way, try again";
         PathD[1] = "Watson:loop";
         // Sets non-branching dialogue as current dialogue (currentPath 1000 is code for dialogue)
         currentdialogue = dialogue;
@@ -85,7 +88,7 @@ public class ConanDoyle : MonoBehaviour
         linecountPaths[3] = 0;
         ABC123 = new List<string[]> { PathA, PathB, PathC, PathD };
 
-
+        noSpeechBoxes = 0;
         SpeechBox[] speechBoxes = GameObject.FindObjectsOfType<SpeechBox>();
         foreach (SpeechBox speechBox in speechBoxes)
         {
@@ -96,6 +99,7 @@ public class ConanDoyle : MonoBehaviour
             speechBox.linecountCurrent = 0;
             speechBox.FindLines();
             speechBox.nextLine();
+            noSpeechBoxes++;
         }
     }
 

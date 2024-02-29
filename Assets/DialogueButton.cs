@@ -72,7 +72,7 @@ public class DialogueButton : MonoBehaviour
             moveUp = 0;
         }
         
-        print("moving up by: " + moveUp + " spaces for " + noChoices + " choices");
+        //print("moving up by: " + moveUp + " spaces for " + noChoices + " choices");
         double topy = texty + (moveUp * height);
         double myY;
         for (int i = 0; i < noChoices; i++ )
@@ -111,18 +111,18 @@ public class DialogueButton : MonoBehaviour
         }
         meBox.MyMouth.color = meBox.textColor;
         meBox.nextButton.interactable = true;
-        meBox.Arthur.nextBoxLine();
         if (meBox.Arthur.options[meBox.Arthur.linecountOptions] == "loop")
         {
-            print("loop");
+            //print("loop");
             DialogueButton[] buttons = FindObjectsOfType<DialogueButton>();
             foreach (DialogueButton button in buttons) { button.moveOut(); }
         }
         else if(meBox.Arthur.options[meBox.Arthur.linecountOptions] == "end")
         {
-            print("end");
+            //print("end");
             meBox.KillButtons();
         }
+        meBox.Arthur.nextBoxLine();
     }
 
     public void moveOut()
@@ -143,6 +143,8 @@ public class DialogueButton : MonoBehaviour
         x = x + 700;
         rectTransform.anchoredPosition = new Vector2(x, y);
     }
+
+    
 
     /*public void nope()
     {

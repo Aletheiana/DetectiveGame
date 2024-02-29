@@ -283,3 +283,4 @@ MonoBehaviour:
   MyName: Watson
   MyChoice: 0
   meBox: {fileID: 0}
+  chosen: 1
