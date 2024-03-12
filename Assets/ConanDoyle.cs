@@ -98,7 +98,7 @@ public class ConanDoyle : MonoBehaviour
             // Prompts dialogue boxes to find where their dialogue is and, if they're the first to speak, display the first line
             speechBox.linecountCurrent = 0;
             speechBox.FindLines();
-            speechBox.nextLine();
+            speechBox.amISpeaking();
             noSpeechBoxes++;
         }
     }
@@ -114,7 +114,7 @@ public class ConanDoyle : MonoBehaviour
         SpeechBox[] speechBoxes = GameObject.FindObjectsOfType<SpeechBox>();
         foreach (SpeechBox speechBox in speechBoxes)
         {
-            speechBox.nextLine();
+            speechBox.amISpeaking();
         }
     }
     

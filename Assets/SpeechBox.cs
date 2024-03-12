@@ -127,65 +127,58 @@ public class SpeechBox : MonoBehaviour
     }
 
     // determines if this character is the first to speak and, if so, displays the character's line (called by ConanDoyle.Start)
-    public void nextLine()
-        /// THEN SHERLOCK RETURNS HERE? thisline = null, linecount = 12, then thisline  = "" because it's blank, so getline or getname return error as there's no colon
+    
+    public void amISpeaking()
     {
-        bool done = false;
-        bool choice = false;
-        // Finds the current line of dialogue, then advances the line counter
         string thisLine = MyLines[linecountCurrent];
         string speakingName = getName(thisLine);
-        //print("Line no " + linecountCurrent + ": " + thisLine);
-        // Checks for loop or end
         string line = getLine(thisLine);
-        if (line == "loop" && Arthur.options[Arthur.linecountOptions] == "loop")
+        // I think looping is the only time it shouldn't advance
+        if (speakingName == MyName)
         {
-            //CatchUp(this, true);
-            //if (speakingName == MyName)
-            //{
-                done = true;
-                choice = true;
-            //}
-            //repeatChoice();
-        }
-        else if (line == "end" && Arthur.options[Arthur.linecountOptions] == "end")
-        {
-            //if (speakingName == MyName)
-            //{
-                done = true;
-                choice = false;
-            //}
-            //CatchUp(this, false);
-            //backToDialogue();
-        }
-        // Determines if this character is speaking
-        // WHY IS WATSON GOING BACK HERE?????? thisLine still == "Watson:loop" but linecount == 12 (after return to dialogue), so linecount becomes 13
-        else if (speakingName == MyName)
-        {
-            // This character is speaking, so moves into view and finds what the character is saying
-            moveIn();
-            // If the character is choosing a dialogue option instead of speaking, runs runChoice()
-            if(line == "Choice")
-            {
-                runChoice();
-            }
-            // Otherwise, displays what the character is saying
-            else
-            {
-                MyMouth.text = line;
-            }
-            linecountCurrent++;
+            nextLine();
         }
         else
         {
-            // This character isn't speaking, so moves out of view
-            //print(speakingName + "'s Line");
             moveOut();
-            linecountCurrent++;
+            if(line != "loop")
+            {
+                linecountCurrent++;
+            }
         }
-        if (done == true)
+    }
+    
+    public void nextLine()
+        /// THEN SHERLOCK RETURNS HERE? thisline = null, linecount = 12, then thisline  = "" because it's blank, so getline or getname return error as there's no colon
+    {
+        // Finds the current line of dialogue
+        string thisLine = MyLines[linecountCurrent];
+        //print("Line no " + linecountCurrent + ": " + thisLine);
+        string line = getLine(thisLine);
+        // Checks for dialogue choice
+        if (line == "Choice")
         {
-            CatchUp(this, choice);
+            linecountCurrent++;
+            moveIn();
+            runChoice();
+        }
+        // Checks for loop or end
+        else if (line == "loop" && Arthur.options[Arthur.linecountOptions] == "loop")
+        {
+            moveIn();
+            repeatChoice(this);
+        }
+        else if (line == "end" && Arthur.options[Arthur.linecountOptions] == "end")
+        {
+            linecountCurrent++;
+            backToDialogue();
+        }
+        // Displays the current line of dialogue
+        else
+        {
+            MyMouth.text = line;
+            linecountCurrent++;
+            moveIn();
         }
     }
 
@@ -272,6 +265,7 @@ public class SpeechBox : MonoBehaviour
     // Brings back buttons from a previous dialogue choice (chosen option greyed out)
     private void repeatChoice(SpeechBox talker)
     {
+        moveInButtons();
         // Checks if all buttons are clicked... you'll see
         int noButtons = 0;
         int noClicked = 0;
@@ -301,8 +295,7 @@ public class SpeechBox : MonoBehaviour
         else if (noButtons == noClicked)
         {
             print("out of options");
-            CatchUp(this, false);
-            //backToDialogue();
+            backToDialogue();
         }
     }
 
@@ -332,36 +325,13 @@ public class SpeechBox : MonoBehaviour
             box.linecountCurrent = Arthur.linecountDialogue;
             box.MyLines = Arthur.currentdialogue;
             box.MyMouth.color = box.textColor;
-            box.nextLine();
+            box.amISpeaking();
         }
-    }
-
-    private void CatchUp(SpeechBox talker, bool repeat)
-    {
-        SpeechBox[] boxes = FindObjectsOfType<SpeechBox>();
-        foreach (SpeechBox box in boxes)
-        {
-            if (box.linecountCurrent != this.linecountCurrent)
-            {
-                return;
-            }
-        }
-        if (repeat == true)
-        {
-            repeatChoice(talker);
-            // Brings all the buttons into view
-            moveInButtons();
-        }
-        else if (repeat == false)
-        {
-            backToDialogue();
-        }
-        print("ran Catchup");
     }
 
     public void moveInButtons()
     {
-        print("buttons moved");
+        //print("buttons moved");
         DialogueButton[] buttons = FindObjectsOfType<DialogueButton>();
         foreach (DialogueButton button in buttons)
         {
@@ -387,4 +357,5 @@ public class SpeechBox : MonoBehaviour
         }
         totallinecount++;
     }*/
+
 }
