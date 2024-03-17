@@ -325,8 +325,11 @@ public class SpeechBox : MonoBehaviour
             box.linecountCurrent = Arthur.linecountDialogue;
             box.MyLines = Arthur.currentdialogue;
             box.MyMouth.color = box.textColor;
-            box.amISpeaking();
+         //   box.amISpeaking();
         }
+        nextButton.interactable = true;
+        this.KillButtons();
+        this.amISpeaking();
     }
 
     public void moveInButtons()

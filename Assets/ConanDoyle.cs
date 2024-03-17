@@ -55,7 +55,9 @@ public class ConanDoyle : MonoBehaviour
         dialogue[8] = "Sherlock:Thanks for playing";
         dialogue[9] = "Watson:Thanks for playing";
         dialogue[10] = "Watson:Choice";
-        dialogue[11] = "Watson:Wow, that was quite the conversation!";
+        dialogue[11] = "Sherlock:Wow, that was quite the conversation!";
+        dialogue[12] = "Watson:Line 12";
+        dialogue[13] = "Watson:Line 13";
         options[0] = "Talk to Sherlock";
         options[1] = "Talk to Gregson";
         options[2] = "Talk to Lestrade";
