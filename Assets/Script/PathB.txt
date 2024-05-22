@@ -1,0 +1,4 @@
+Sherlock:Pretend I'm Gregson, Welcome to the crime scene
+Watson:Why are we pretending?
+Sherlock:Maddy hasn't made a dialogue box for Gregson yet
+Watson:loop

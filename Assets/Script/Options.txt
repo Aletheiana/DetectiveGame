@@ -1,0 +1,4 @@
+Talk to Sherlock
+Talk to Gregson
+Talk to Lestrade
+loop

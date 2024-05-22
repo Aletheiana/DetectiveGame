@@ -1,0 +1,15 @@
+Sherlock:Hello World
+Watson:Who are you talking to?
+Sherlock:Oh hello Watson
+Sherlock:I'm talking to the player
+Watson:Well that makes perfect sense(!)
+Sherlock:I assure you it does, but I'll desist if it makes you uncomfortable
+Watson:It does, and I'm eager to hear of your progress on our case
+Sherlock:Ah yes, the case
+Sherlock:Thanks for playing
+Watson:Thanks for playing
+Watson:Choice
+Sherlock:Wow, that was quite the conversation!
+Watson:Line 12
+Watson:Line 13
+NewScene:Intro

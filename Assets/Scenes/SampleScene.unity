@@ -675,7 +675,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4135334018947331329, guid: 0cdf88018d77b8d4b8ad895425158de1, type: 3}
       propertyPath: m_SizeDelta.x
-      value: -160
+      value: -299
       objectReference: {fileID: 0}
     - target: {fileID: 4135334018947331329, guid: 0cdf88018d77b8d4b8ad895425158de1, type: 3}
       propertyPath: m_SizeDelta.y
@@ -711,7 +711,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4135334018947331329, guid: 0cdf88018d77b8d4b8ad895425158de1, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -70
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 4135334018947331329, guid: 0cdf88018d77b8d4b8ad895425158de1, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -1203,9 +1203,17 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1237933603595676887, guid: 790159806541e76418a37390f1f6a4f1, type: 3}
+      propertyPath: nextButton
+      value: 
+      objectReference: {fileID: 568940257}
+    - target: {fileID: 1237933603595676887, guid: 790159806541e76418a37390f1f6a4f1, type: 3}
       propertyPath: buttonPrefab
       value: 
       objectReference: {fileID: 5845882690174158971, guid: fbfd024859d17b040a4df5c1617f4a9a, type: 3}
+    - target: {fileID: 1237933603595676887, guid: 790159806541e76418a37390f1f6a4f1, type: 3}
+      propertyPath: filepathScript
+      value: C:\\Users\\melet\\OneDrive\\Documents\\Unity\\The Diary of Dr John Watson\\Assets\\Script\\
+      objectReference: {fileID: 0}
     - target: {fileID: 2337895772856678361, guid: 790159806541e76418a37390f1f6a4f1, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.7072759

@@ -75,8 +75,16 @@ public class SpeechBox : MonoBehaviour
         int rightstretch = Convert.ToInt32(mywidth);
         int borderstretch = 10;
         // Converts the stretch into appropriate format
-        TopRight = new Vector2(rightstretch, topstretch);
-        BottomLeft = new Vector2(borderstretch, borderstretch);
+        if(MyName == "Watson")
+        {
+            TopRight = new Vector2(rightstretch, topstretch);
+            BottomLeft = new Vector2(borderstretch, borderstretch);
+        }
+        else
+        {
+            TopRight = new Vector2 ((0-borderstretch), topstretch);
+            BottomLeft = new Vector2((0-rightstretch), borderstretch);
+        }
         //Debug.Log("before transform, OffsetMax: " + this.GetComponent<RectTransform>().offsetMax + ", OffsetMin: " + this.GetComponent<RectTransform>().offsetMin);
         // Transforms the dialogue box
         this.GetComponent<RectTransform>().offsetMax = TopRight;
@@ -111,8 +119,18 @@ public class SpeechBox : MonoBehaviour
         float textHeight = MyMouth.GetComponent<RectTransform>().rect.height;
         textWidth = textWidth / 2;
         textHeight = textHeight / 2;
-        float x = 0 - (canvasWidth - textWidth - 20);
-        float y = 0 - (canvasHeight - textHeight - 20);
+        float x;
+        float y;
+        if (MyName == "Watson")
+        {
+            x = 0 - (canvasWidth - textWidth - 20);
+            y = 0 - (canvasHeight - textHeight - 20);
+        }
+        else
+        {
+            x = canvasWidth - textWidth - 20;
+            y = 0 - (canvasHeight - textHeight - 20);
+        }
         textPosition = new Vector2(x, y);
         //Debug.Log("Text Center: (" + x + ", " + y + ")");
         MyMouth.GetComponent<RectTransform>().anchoredPosition = textPosition;
@@ -137,6 +155,10 @@ public class SpeechBox : MonoBehaviour
         if (speakingName == MyName)
         {
             nextLine();
+        }
+        else if (speakingName == "NewScene")
+        {
+            Arthur.NewScene(line);
         }
         else
         {

@@ -1,0 +1,4 @@
+Sherlock:Or Lestrade, for that matter
+Watson:Huh? And where is Lestrade, i asked to talk to him
+Sherlock:Go back and choose to talk to Gregson, I'll explain there
+Watson:loop

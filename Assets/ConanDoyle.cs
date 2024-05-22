@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
+using System.IO;
+using UnityEngine.UI;
+using static UnityEngine.UIElements.UxmlAttributeDescription;
+using System.Xml.Linq;
 
 public class ConanDoyle : MonoBehaviour
 {
@@ -25,6 +29,8 @@ public class ConanDoyle : MonoBehaviour
     public List<string[]> ABC123;
     public int[] linecountPaths = new int[26];
     public int currentPath;
+    public Button nextButton;
+    public string filepathScript;
 
     // Set in start, needs to be updated whenever a speechbox is instantiated or destroyed
     public int noSpeechBoxes;
@@ -32,8 +38,8 @@ public class ConanDoyle : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
         // Populates string arrays with characters' dialogue
+        // From a text file
         /* INSTRUCTIONS:
                         Name of character speaking goes at start of string
                         Name separated from speech by a colon ":"
@@ -44,39 +50,21 @@ public class ConanDoyle : MonoBehaviour
                         End list of options with "loop" for choic which returns to buttons screen after branched "Path" dialogue
                         If choose "loop", paths must also end with "loop"
         */
-        dialogue[0] = "Sherlock:Hello World";
-        dialogue[1] = "Watson:Who are you talking to?";
-        dialogue[2] = "Sherlock:Oh hello Watson";
-        dialogue[3] = "Sherlock:I'm talking to the player";
-        dialogue[4] = "Watson:Well that makes perfect sense(!)";
-        dialogue[5] = "Sherlock:I assure you it does, but I'll desist if it makes you uncomfortable";
-        dialogue[6] = "Watson:It does, and I'm eager to hear of your progress on our case";
-        dialogue[7] = "Sherlock:Ah yes, the case";
-        dialogue[8] = "Sherlock:Thanks for playing";
-        dialogue[9] = "Watson:Thanks for playing";
-        dialogue[10] = "Watson:Choice";
-        dialogue[11] = "Sherlock:Wow, that was quite the conversation!";
-        dialogue[12] = "Watson:Line 12";
-        dialogue[13] = "Watson:Line 13";
-        options[0] = "Talk to Sherlock";
-        options[1] = "Talk to Gregson";
-        options[2] = "Talk to Lestrade";
-        options[3] = "loop";
-        PathA[0] = "Sherlock:I don't expect it to be very interesting, a simple murder";
-        PathA[1] = "Watson:sldkalsdk";
-        PathA[2] = "Sherlock:eiqoepruqeiortuqpoerip";
-        PathA[3] = "Sherlock:Yeah, I can't think what to say either";
-        PathA[4] = "Watson:loop";
-        PathB[0] = "Sherlock:Pretend I'm Gregson, Welcome to the crime scene";
-        PathB[1] = "Watson:Why are we pretending?";
-        PathB[2] = "Sherlock:Maddy hasn't made a dialogue box for Gregson yet";
-        PathB[3] = "Watson:loop";
-        PathC[0] = "Sherlock:Or Lestrade, for that matter";
-        PathC[1] = "Watson:Huh? And where is Lestrade, i asked to talk to him";
-        PathC[2] = "Sherlock:Go back and choose to talk to Gregson, I'll explain there";
-        PathC[3] = "Watson:loop";
-        PathD[0] = "Sherlock:You've gone the wrong way, try again";
-        PathD[1] = "Watson:loop";
+        dialogue = File.ReadAllLines(filepathScript + "Dialogue.txt");
+        /*print("Here are the contents of the file:");
+        for (int i = 0; i < dialogue.Length; i++)
+        {
+            print("Line " + (i + 1) + ": ");
+            print(dialogue[i]);
+            print(" ");
+        }*/
+
+        options = File.ReadAllLines(filepathScript + "Options.txt");
+        PathA = File.ReadAllLines(filepathScript + "PathA.txt");
+        PathB = File.ReadAllLines(filepathScript + "PathB.txt");
+        PathC = File.ReadAllLines(filepathScript + "PathC.txt");
+        PathD = File.ReadAllLines(filepathScript + "PathD.txt");
+        
         // Sets non-branching dialogue as current dialogue (currentPath 1000 is code for dialogue)
         currentdialogue = dialogue;
         currentPath = 1000;
@@ -119,7 +107,12 @@ public class ConanDoyle : MonoBehaviour
             speechBox.amISpeaking();
         }
     }
-    
+
+    public void NewScene(string whichscene)
+    {
+        print("New Scene: " +  whichscene);
+        nextButton.interactable = false;
+    }
 
     
 }
