@@ -18,6 +18,7 @@ public class SpeechBox : MonoBehaviour
     public TMP_Text MyMouth;
     public Canvas canvas;
     public UnityEngine.UI.Button nextButton;
+    public Background backgroundKeeper;
     //public int totallinecount;
     public Vector2 textPosition;
     public Vector2 TopRight;
@@ -159,6 +160,21 @@ public class SpeechBox : MonoBehaviour
         else if (speakingName == "NewScene")
         {
             Arthur.NewScene(line);
+        }
+        else if (speakingName == "Background")
+        {
+            if (backgroundKeeper.currentBackground == line)
+            {
+                print("background already matches new");
+                linecountCurrent++;
+                return;
+            }
+            else
+            {
+                backgroundKeeper.ChangeBackground(line);
+                linecountCurrent++;
+                Arthur.nextBoxLine();
+            }
         }
         else
         {

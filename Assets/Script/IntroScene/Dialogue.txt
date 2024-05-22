@@ -1,0 +1,22 @@
+Watson:VO recapping move-in, curiosity, learning of profession, introducing story by saying his work on this case extinguished all initial skepticism, then open on Sherlock receiving Lestrade's note
+Background:BakerSt
+Watson:It all started when we recieved a letter from Tobias Gregson of Scotland Yard, asking Sherlock to consult on a mysterious murder in a house at Laureston gardens.
+Watson:Are you seriously not going?
+Sherlock:I'm an incurably lazy person when the fit is upon me, and this case doesn't seem so exciting as to cure me of it
+Watson:But he begs you to help him!
+Sherlock:Ah yes, he knows I have superior skill and admits it to me in private, but he'd sooner leave the force than admit it to any third person.
+Sherlock:Be assured, if I do go and if I solve this case, all credit will go to Gregson and Lestrade. This is the price of being an unofficial person.
+Watson:If there's no credit to be gained, you must have some other reason for working with them so often.
+Sherlock:Well yes, in my energetic moods I find it most invigorating, and I couldn't allow a guilty party to walk free for the sake of my pride. 
+Sherlock:Gregson is the best of a bad bunch at Scotland yard - energetic and tenacious but so conventional. Lestrade too. There'll be some fun over this case if they're both put upon the scent, they can't help competing. 
+Sherlock:Ah, I may as well go. I shall work my own line and perhaps have fun with them myself.
+Sherlock:You can come too, if you have nothing better to do.
+Watson:I'd be delighted!
+Background:Blank
+Watson:So, what's your theory?
+Sherlock:No data yet.
+Sherlock:It's imperative never to theorise without sufficient data. Otherwise you'll inveriably start twisting facts to fit your theories instead of the other way round.
+Background:Laureston
+Sherlock:Hold up a minute, I want to look at these footprints before go up to the house.
+Sherlock:Although what use they'll be now the police have traipsed all over them is questionable.
+NewScene:Footprints
