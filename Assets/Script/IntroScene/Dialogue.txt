@@ -13,10 +13,15 @@ Sherlock:Ah, I may as well go. I shall work my own line and perhaps have fun wit
 Sherlock:You can come too, if you have nothing better to do.
 Watson:I'd be delighted!
 Background:Blank
-Watson:So, what's your theory?
+Watson:You don't seem to have given much thought to the matter at hand.
 Sherlock:No data yet.
 Sherlock:It's imperative never to theorise without sufficient data. Otherwise you'll inveriably start twisting facts to fit your theories instead of the other way round.
+Watson:You'll have your data soon enough. This is the Brixton Road and that is the house if I'm not mistaken.
+Sherlock:Right you are. Stop here driver, thank you.
 Background:Laureston
-Sherlock:Hold up a minute, I want to look at these footprints before go up to the house.
-Sherlock:Although what use they'll be now the police have traipsed all over them is questionable.
+Sherlock:Hold up a minute, I want to have a look at the path up to the house, although what I may find now the police have traipsed all over it is questionable.
+Watson:Whatever for, Holmes?
+Sherlock:Footprints, my friend. If we first know how our dead man came to be in this abandoned house, we shall better understand what happened within it.
+Watson:But there are so many footprints, how can you possibly tell which are whose?
+Sherlock:Have a look for yourself and I will talk you through it.
 NewScene:Footprints

@@ -31,6 +31,7 @@ public class ConanDoyle : MonoBehaviour
     public int currentPath;
     public Button nextButton;
     public string filepathScript;
+    public Christe Agatha;
 
     // Set in start, needs to be updated whenever a speechbox is instantiated or destroyed
     public int noSpeechBoxes;
@@ -78,18 +79,26 @@ public class ConanDoyle : MonoBehaviour
         linecountPaths[3] = 0;
         ABC123 = new List<string[]> { PathA, PathB, PathC, PathD };
 
-        noSpeechBoxes = 0;
-        SpeechBox[] speechBoxes = GameObject.FindObjectsOfType<SpeechBox>();
-        foreach (SpeechBox speechBox in speechBoxes)
+        if (Agatha == null)
         {
-            // Positions the dialogue boxes and text relative to the canvas
-            speechBox.RepositionLeft();
-            speechBox.RepositionText();
-            // Prompts dialogue boxes to find where their dialogue is and, if they're the first to speak, display the first line
-            speechBox.linecountCurrent = 0;
-            speechBox.FindLines();
-            speechBox.amISpeaking();
-            noSpeechBoxes++;
+            noSpeechBoxes = 0;
+            SpeechBox[] speechBoxes = GameObject.FindObjectsOfType<SpeechBox>();
+            foreach (SpeechBox speechBox in speechBoxes)
+            {
+                // Positions the dialogue boxes and text relative to the canvas
+                speechBox.RepositionLeft();
+                speechBox.RepositionText();
+                // Prompts dialogue boxes to find where their dialogue is and, if they're the first to speak, display the first line
+                speechBox.linecountCurrent = 0;
+                speechBox.FindLines();
+                speechBox.amISpeaking();
+                noSpeechBoxes++;
+            }
+        }
+        else
+        {
+            noSpeechBoxes = 0;
+            Agatha.afterArthur();
         }
     }
 

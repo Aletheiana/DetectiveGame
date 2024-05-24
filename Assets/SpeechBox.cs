@@ -173,7 +173,10 @@ public class SpeechBox : MonoBehaviour
             {
                 backgroundKeeper.ChangeBackground(line);
                 linecountCurrent++;
-                Arthur.nextBoxLine();
+                if (Arthur.Agatha == null)
+                {
+                    Arthur.nextBoxLine();
+                }
             }
         }
         else
@@ -222,7 +225,7 @@ public class SpeechBox : MonoBehaviour
 
 
     // Moves this dialogue box and its textbox into view
-    private void moveIn()
+    public void moveIn()
     {
         this.GetComponent<RectTransform>().offsetMax = TopRight;
         this.GetComponent<RectTransform>().offsetMin = BottomLeft;
@@ -230,7 +233,7 @@ public class SpeechBox : MonoBehaviour
     }
 
     // Moves this dialogue box and its textbox out of view
-    private void moveOut()
+    public void moveOut()
     {
         this.GetComponent<RectTransform>().offsetMax = new Vector2(-883, -220);
         this.GetComponent<RectTransform>().offsetMin = new Vector2(-723, 0);
